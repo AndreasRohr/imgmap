@@ -1,0 +1,17 @@
+<%= form_with model: @map, url: map_path(@map), method: :patch do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <br>
+  <%= form.label :lat %>
+  <%= form.text_field :lat %>
+  <br>
+  <%= form.label :lng %>
+  <%= form.text_field :lng %>
+  <br>
+  <%= form.label :zoom %>
+  <%= form.text_field :zoom %>
+  <br>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to 'Back', map_path(@map) %>

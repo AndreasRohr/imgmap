@@ -1,0 +1,45 @@
+<%= form_with model: @map, url: maps_path do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <br>
+  <%= form.label :lat %>
+  <%= form.text_field :lat %>
+  <br>
+  <%= form.label :lng %>
+  <%= form.text_field :lng %>
+  <br>
+  <%= form.label :zoom %>
+  <%= form.text_field :zoom %>
+  <br>
+  <%= form.hidden_field :lat, id: 'hidden_lat' %>
+  <%= form.hidden_field :lng, id: 'hidden_lng' %>
+  <%= form.hidden_field :zoom, id: 'hidden_zoom' %>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to 'Back', maps_path %>
+
+<div style="height: 90vh" id="map"></div>
+
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBbBMrnS3KrUYYoOJ_k9a8EoOFaicyxCAw&callback=initMap", defer: true %>
+<script>
+    function initMap() {
+        var latLng = {lat: 46.9626369748068, lng: 8.425040772032764};
+        var zoom = 9;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: zoom,
+            center: latLng
+        });
+
+        google.maps.event.addListener(map, 'center_changed', function() {
+            var latLng = map.getCenter();
+            document.getElementById('hidden_lat').value = latLng.lat();
+            document.getElementById('hidden_lng').value = latLng.lng();
+            document.getElementById('hidden_zoom').value = map.zoom;
+            console.log("LAT: "+latLng.lat())
+            console.log("LNG: "+latLng.lng())
+        });
+
+    }
+</script>
+
