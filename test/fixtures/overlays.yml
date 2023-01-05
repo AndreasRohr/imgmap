@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  lat: 1.5
+  lng: 1.5
+  rotation: 1.5
+  year: 1.5
+  maps: one
+
+two:
+  title: MyString
+  lat: 1.5
+  lng: 1.5
+  rotation: 1.5
+  year: 1.5
+  maps: two
