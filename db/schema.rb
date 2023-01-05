@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_120105) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_05_134551) do
   create_table "image_sets", force: :cascade do |t|
     t.string "title"
     t.string "typ"
@@ -37,9 +37,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_120105) do
 
   create_table "maps", force: :cascade do |t|
     t.string "title"
-    t.float "lat"
-    t.float "lng"
-    t.float "zoom"
+    t.decimal "lat"
+    t.decimal "lng"
+    t.decimal "zoom"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

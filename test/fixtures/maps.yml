@@ -2,12 +2,12 @@
 
 one:
   title: MyString
-  lat: 1.5
-  lng: 1.5
-  zoom: 1.5
+  lat: 9.99
+  long: 9.99
+  zoom: 9.99
 
 two:
   title: MyString
-  lat: 1.5
-  lng: 1.5
-  zoom: 1.5
+  lat: 9.99
+  long: 9.99
+  zoom: 9.99

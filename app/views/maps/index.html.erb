@@ -1,1 +1,8 @@
-<h1>Hello, Rails!</h1>
+<div style="height: 100vh" id="map"></div>
+<%= javascript_include_tag 'map' %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBbBMrnS3KrUYYoOJ_k9a8EoOFaicyxCAw&callback=initMap",
+     defer: true
+ %>
+<script>
+ var modelData = <%= raw @model_data.to_json %>;
+</script>

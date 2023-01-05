@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+#
+Map.create(title: "Gurtenfestival", lat: 46.91783849056467, lng: 7.441518321128134, zoom: 17)

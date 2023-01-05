@@ -1,2 +1,2 @@
-bin/class Map < ApplicationRecord
+class Map < ApplicationRecord
 end
