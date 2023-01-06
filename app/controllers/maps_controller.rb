@@ -20,7 +20,7 @@ class MapsController < ApplicationController
     if @map.save
       redirect_to @map
     else
-      render 'new'
+      render :new, status: :unprocessable_entity
     end
   end
 

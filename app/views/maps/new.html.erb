@@ -1,16 +1,9 @@
 <%= form_with model: @map, url: maps_path do |form| %>
   <%= form.label :title %>
   <%= form.text_field :title %>
-  <br>
-  <%= form.label :lat %>
-  <%= form.text_field :lat %>
-  <br>
-  <%= form.label :lng %>
-  <%= form.text_field :lng %>
-  <br>
-  <%= form.label :zoom %>
-  <%= form.text_field :zoom %>
-  <br>
+  <% @map.errors.full_messages_for(:title).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
   <%= form.hidden_field :lat, id: 'hidden_lat' %>
   <%= form.hidden_field :lng, id: 'hidden_lng' %>
   <%= form.hidden_field :zoom, id: 'hidden_zoom' %>
