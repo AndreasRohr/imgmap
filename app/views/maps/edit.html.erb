@@ -1,17 +1,52 @@
-<%= form_with model: @map, url: map_path(@map), method: :patch do |form| %>
-  <%= form.label :title %>
-  <%= form.text_field :title %>
-  <br>
-  <%= form.label :lat %>
-  <%= form.text_field :lat %>
-  <br>
-  <%= form.label :lng %>
-  <%= form.text_field :lng %>
-  <br>
-  <%= form.label :zoom %>
-  <%= form.text_field :zoom %>
-  <br>
-  <%= form.submit %>
-<% end %>
+<head>
+  <%= stylesheet_link_tag 'style' %>
+</head>
+<div id="editContainer">
+<div id="CardView">
+  <%= form_with model: @map, url: map_path(@map), method: :patch do |form| %>
+    <div>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+      <% @map.errors.full_messages_for(:title).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+      <%= form.hidden_field :lat, id: 'hidden_lat' %>
+      <%= form.hidden_field :lng, id: 'hidden_lng' %>
+      <%= form.hidden_field :zoom, id: 'hidden_zoom' %>
+    </div>
+    <div>
+      <%= button_to 'Back', map_path, method: :get, class: 'btn btn-secondary', id: 'backButton' %>
+      <%= button_to 'Destroy', map_path(@map), method: :delete, data: {
+        turbo_confirm: "Are you sure?"
+      }, class: 'btn btn-danger', id: 'deleteButton' %>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
+<div id="editMap"></div>
+</div>
 
-<%= link_to 'Back', map_path(@map) %>
+
+
+
+
+
+
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBbBMrnS3KrUYYoOJ_k9a8EoOFaicyxCAw&callback=initMap", defer: true %>
+<script>
+    function initMap() {
+        var latLng = {lat: <%= @map.lat %>, lng: <%= @map.lng %>};
+        var map = new google.maps.Map(document.getElementById('editMap'), {
+            zoom: <%= @map.zoom %>,
+            center: latLng
+        });
+
+        google.maps.event.addListener(map, 'center_changed', function() {
+            var latLng = map.getCenter();
+            document.getElementById('hidden_lat').value = latLng.lat();
+            document.getElementById('hidden_lng').value = latLng.lng();
+            document.getElementById('hidden_zoom').value = map.zoom;
+        });
+
+    }
+</script>

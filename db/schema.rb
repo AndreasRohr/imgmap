@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_134551) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_120730) do
   create_table "image_sets", force: :cascade do |t|
     t.string "title"
     t.string "typ"
@@ -19,20 +19,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_134551) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["map_id"], name: "index_image_sets_on_map_id"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string "title"
-    t.float "lat"
-    t.float "lng"
-    t.float "rotation"
-    t.string "tag"
-    t.date "date"
-    t.string "uploadedBy"
-    t.integer "ImageSet_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ImageSet_id"], name: "index_images_on_ImageSet_id"
   end
 
   create_table "maps", force: :cascade do |t|
@@ -44,19 +30,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_134551) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "overlays", force: :cascade do |t|
-    t.string "title"
-    t.float "lat"
-    t.float "lng"
-    t.float "rotation"
-    t.float "year"
-    t.integer "map_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["map_id"], name: "index_overlays_on_map_id"
-  end
-
   add_foreign_key "image_sets", "maps"
-  add_foreign_key "images", "ImageSets"
-  add_foreign_key "overlays", "maps"
 end

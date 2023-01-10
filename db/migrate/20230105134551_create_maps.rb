@@ -8,5 +8,6 @@ class CreateMaps < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
   end
 end

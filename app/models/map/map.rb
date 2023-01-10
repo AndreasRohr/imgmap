@@ -3,4 +3,5 @@ class Map < ApplicationRecord
   validates :lat, presence: true
   validates :lng, presence: true
   validates :zoom, presence: true
+  has_many :image_sets
 end

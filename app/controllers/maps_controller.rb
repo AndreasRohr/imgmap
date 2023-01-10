@@ -1,4 +1,5 @@
 class MapsController < ApplicationController
+  layout 'sidebar'
   before_action :set_map, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -6,6 +7,7 @@ class MapsController < ApplicationController
   end
 
   def show
+    @map = Map.find(params[:id])
   end
 
   def new
