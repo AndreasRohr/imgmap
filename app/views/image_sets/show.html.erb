@@ -3,8 +3,5 @@
 <%= render @image_set %>
 
 <div>
-  <%= link_to "Edit this image set", edit_image_set_path(@image_set) %> |
-  <%= link_to "Back to image sets", image_sets_path %>
-
-  <%= button_to "Destroy this image set", @image_set, method: :delete %>
+  <%= button_to 'Edit', edit_image_set_path(@image_set), method: :get, class: 'btn btn-primary custom-button' %>
 </div>

@@ -1,4 +1,4 @@
-<%= form_with(model: image_set) do |form| %>
+<%= form_with(model: image_set, remote: true) do |form| %>
   <% if image_set.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(image_set.errors.count, "error") %> prohibited this image_set from being saved:</h2>
@@ -12,24 +12,20 @@
   <% end %>
 
   <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
     <%= form.label :typ, style: "display: block" %>
-    <%= form.text_field :typ %>
+    <%= form.text_field :typ  %>
   </div>
 
   <div>
     <%= form.label :color, style: "display: block" %>
-    <%= form.text_field :color %>
+    <%= form.select :color, options_for_select([["Red","#ff0000"], ["Green","#00ff00"], ["Blue","#0000ff"], ["Yellow","#ffff00"], ["Black","#000000"], ["White","#ffffff"]], selected: image_set.color), {include_blank: 'Select Color'} %>
   </div>
 
   <div>
     <%= form.label :map_id, style: "display: block" %>
-    <%= form.select(:map_id, Map.all.collect { |map| [map.title, map.id] }, {:include_blank => true, :selected => form.object.map_id}) %>
+    <%= form.select :map_id, options_from_collection_for_select(Map.all, :id, :title, image_set.map_id), {include_blank: 'Select Map'} %>
   </div>
+
 
   <div>
     <%= form.submit %>

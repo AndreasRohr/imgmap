@@ -1,17 +1,6 @@
 <h1>
   <%= @map.title %>
 </h1>
-<h2> Images </h2>
-<table>
-  <% @map.image_sets.each do |image_set| %>
-    <tr>
-      <td><%= image_set.title %></td>
-      <td><%= image_set.typ %></td>
-      <td><%= image_set.color %></td>
-    </tr>
-  <% end %>
-</table>
-<input style="width: 1000px;" type="range" min="1" max="150" step="0.1" value="100" oninput="resizeMarker(this.value)">
 <div style=" display: flex;position: absolute; top: 10px; right: 10px">
   <%= button_to 'Edit', edit_map_path(@map), method: :get, class: 'btn btn-primary custom-button' %>
 
@@ -42,13 +31,7 @@
             draggable: false,
         });
 
-        marker = new google.maps.Marker({
-            position: latLng,
-            map,
-            scaledSize: (imagewidth,imageheight),
-            draggable:true,
-            icon: "<%= image_path("overlay.jpg") %>"
-        });
+
     }
 
     function resizeMarker(size) {

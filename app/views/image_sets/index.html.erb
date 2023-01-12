@@ -1,14 +1,26 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Image sets</h1>
-
 <div id="image_sets">
-  <% @image_sets.each do |image_set| %>
-    <%= render image_set %>
-    <p>
-      <%= link_to "Show this image set", image_set %>
-    </p>
+  <% @image_sets.group_by(&:map).each do |map, image_sets| %>
+    <h2><%= map.title %></h2>
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap">
+      <% image_sets.each do |image_set| %>
+        <%= link_to image_set, style: 'color: black; text-decoration: none' do %>
+          <div class="card" style="width: 200px; height: 200px; display: flex; justify-content: center; text-align: center; align-items: center; border: 3px solid <%= image_set.color %>; margin: 15px;">
+            <%= image_set.typ %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New image set", new_image_set_path %>
+
+
+
+
+
+
+
+
+<div style="position: absolute; top: 10px; right: 10px">
+  <%= button_to 'New image set', new_image_set_path, method: :get, class: 'btn btn-primary custom-button' %>
+</div>

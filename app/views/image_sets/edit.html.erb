@@ -5,6 +5,6 @@
 <br>
 
 <div>
-  <%= link_to "Show this image set", @image_set %> |
-  <%= link_to "Back to image sets", image_sets_path %>
+  <%= button_to 'Back', image_set_path, method: :get, class: 'btn btn-secondary', id: 'backButton' %>
+  <%= button_to "Delete", @image_set, method: :delete %>
 </div>

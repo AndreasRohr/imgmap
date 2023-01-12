@@ -3,7 +3,7 @@ class ImageSetsController < ApplicationController
 
   # GET /image_sets or /image_sets.json
   def index
-    @image_sets = ImageSet.all
+    @image_sets = ImageSet.includes(:map).all
   end
 
   # GET /image_sets/1 or /image_sets/1.json
@@ -58,13 +58,13 @@ class ImageSetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_image_set
-      @image_set = ImageSet.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_image_set
+    @image_set = ImageSet.includes(:map).find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def image_set_params
-      params.require(:image_set).permit(:title, :typ, :color, :map_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def image_set_params
+    params.require(:image_set).permit(:title, :typ, :color, :map_id)
+  end
 end

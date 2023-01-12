@@ -7,7 +7,6 @@ class MapsController < ApplicationController
   end
 
   def show
-    @map = Map.find(params[:id])
   end
 
   def new
@@ -28,7 +27,7 @@ class MapsController < ApplicationController
 
   def update
     if @map.update(map_params)
-      redirect_to @map, notice: 'Map was successfully updated.'
+      redirect_to maps_path, notice: 'Map was successfully updated.'
     else
       render :edit
     end
