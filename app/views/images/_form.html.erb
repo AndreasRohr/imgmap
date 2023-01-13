@@ -51,32 +51,24 @@
     <%= form.text_field :uploadedBy %>
   </div>
 
-
   <div>
     <%= form.label :map_id, style: "display: block" %>
-    <%= form.select :map_id, options_from_collection_for_select(Map.all, :id, :title), {include_blank: 'Select Map'}, onchange: "updateImageSetOptions(this)" %>
-    <%#= form.collection_select :map_id, Map.all, :id, :title, {include_blank: 'Select Map'}, {id: 'map_id'}, onchange: "updateImageSetOptions(this)"   %>
+    <%= form.collection_select :map_id, Map.all, :id, :title, {include_blank: 'Select Map'}, {id: 'map_id'}  %>
   </div>
 
   <div>
-    <%= form.label :image_sets_id, style: "display: block" %>
-    <select id="image_sets_id" name="image[image_sets_id]">
-      <option value="">Select ImageSet</option>
-    </select>
+    <%= form.label :image_set_id, style: "display: block" %>
+    <%= form.select :image_set_id, options_from_collection_for_select(ImageSet.all, :id, :typ, image.image_set_id),{include_blank: 'Select ImageSet'},{id: 'image_set_id' ,disabled: true}  %>
   </div>
 
   <div>
     <%= form.submit %>
   </div>
 <% end %>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="module">
     document.querySelector("#map_id").addEventListener("change", function() {
-        var imageSetSelect = document.querySelector("#image_sets_id");
+        var imageSetSelect = document.querySelector("#image_set_id");
         if (this.value) {
             imageSetSelect.disabled = false;
         } else {
@@ -84,29 +76,28 @@
         }
     });
 
-
-    function updateImageSetOptions(select) {
-        var imageSet = document.getElementById("image_sets_id");
-        var mapId = select.value;
-        $.ajax({
-            url: '/get_image_sets',
-            type: 'GET',
-            data: { map_id: mapId },
-            success: function(data) {
-                //imageSet.innerHTML = "Select ImageMap";
-                for (var i = 0; i < data.length; i++) {
-                    var option = document.createElement("option");
-                    option.value = data[i].id;
-                    option.text = data[i].typ;
-                    imageSet.appendChild(option);
+    $(document).ready(function() {
+        $('#map_id').on('change', function() {
+            var mapId = $(this).val();
+            $.ajax({
+                url: '/maps/' + mapId + '/image_sets',
+                dataType: 'json',
+                success: function(data) {
+                    var imageSetSelect = $('#image_set_id');
+                    imageSetSelect.empty();
+                    imageSetSelect.append($('<option>', {
+                        value: '',
+                        text: 'Select Image Set'
+                    }));
+                    $.each(data, function(index, imageSet) {
+                        imageSetSelect.append($('<option>', {
+                            value: imageSet.id,
+                            text: imageSet.typ
+                        }));
+                    });
+                    imageSetSelect.prop('disabled', false);
                 }
-            }
+            });
         });
-            }
+    });
 </script>
-
-
-
-
-
-

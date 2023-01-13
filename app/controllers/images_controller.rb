@@ -10,12 +10,6 @@ class ImagesController < ApplicationController
   def show
   end
 
-  def get_image_sets
-    @image_sets = ImageSet.where(map_id: params[:map_id])
-    render json: @image_sets
-  end
-
-
   # GET /images/new
   def new
     @image = Image.new
@@ -64,13 +58,13 @@ class ImagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_image
-      @image = Image.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_image
+    @image = Image.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def image_params
-      params.require(:image).permit(:title, :lat, :lng, :rotation, :tag, :date, :source, :uploadedBy, :image_set_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def image_params
+    params.require(:image).permit(:title, :lat, :lng, :rotation, :tag, :date, :source, :uploadedBy, :image_set_id)
+  end
 end

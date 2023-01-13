@@ -5,7 +5,12 @@ class MapsController < ApplicationController
   def index
     @maps = Map.all
   end
-
+  def image_sets
+    @image_sets = Map.find(params[:id]).image_sets
+    respond_to do |format|
+      format.json { render json: @image_sets }
+    end
+  end
   def show
   end
 
