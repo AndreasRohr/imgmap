@@ -1,3 +1,3 @@
 class Image < ApplicationRecord
-  belongs_to :imagesets
+  belongs_to :image_set
 end

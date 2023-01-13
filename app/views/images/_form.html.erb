@@ -52,10 +52,11 @@
   </div>
 
 
-  <div>
-    <%= form.label :image_sets_id, style: "display: block" %>
-    <%= form.select :image_sets_id, options_from_collection_for_select(ImageSet.all, :id, :typ, image.image_set_id), {include_blank: 'Select ImageSet'} %>
-  </div>
+    <div>
+      <%= form.label :image_set_id, style: "display: block" %>
+      <%= form.select :image_set_id, options_from_collection_for_select(ImageSet.all, :id, :typ, image.image_set_id),{include_blank: 'Select ImageSet'} %>
+
+    </div>
 
   <div>
     <%= form.submit %>
