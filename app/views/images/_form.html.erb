@@ -1,0 +1,63 @@
+<%= form_with(model: image) do |form| %>
+  <% if image.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(image.errors.count, "error") %> prohibited this image from being saved:</h2>
+
+      <ul>
+        <% image.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :lat, style: "display: block" %>
+    <%= form.text_field :lat %>
+  </div>
+
+  <div>
+    <%= form.label :lng, style: "display: block" %>
+    <%= form.text_field :lng %>
+  </div>
+
+  <div>
+    <%= form.label :rotation, style: "display: block" %>
+    <%= form.text_field :rotation %>
+  </div>
+
+  <div>
+    <%= form.label :tag, style: "display: block" %>
+    <%= form.text_field :tag %>
+  </div>
+
+  <div>
+    <%= form.label :date, style: "display: block" %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div>
+    <%= form.label :source, style: "display: block" %>
+    <%= form.text_field :source %>
+  </div>
+
+  <div>
+    <%= form.label :uploadedBy, style: "display: block" %>
+    <%= form.text_field :uploadedBy %>
+  </div>
+
+
+  <div>
+    <%= form.label :image_sets_id, style: "display: block" %>
+    <%= form.select :image_sets_id, options_from_collection_for_select(ImageSet.all, :id, :typ, image.image_set_id), {include_blank: 'Select ImageSet'} %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

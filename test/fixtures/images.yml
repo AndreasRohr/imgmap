@@ -6,9 +6,10 @@ one:
   lng: 1.5
   rotation: 1.5
   tag: MyString
-  date: 2023-01-05
+  date: 2023-01-13
+  source: MyString
   uploadedBy: MyString
-  ImageSet: one
+  imagesets: one
 
 two:
   title: MyString
@@ -16,6 +17,7 @@ two:
   lng: 1.5
   rotation: 1.5
   tag: MyString
-  date: 2023-01-05
+  date: 2023-01-13
+  source: MyString
   uploadedBy: MyString
-  ImageSet: two
+  imagesets: two
