@@ -10,6 +10,12 @@ class ImagesController < ApplicationController
   def show
   end
 
+  def get_image_sets
+    @image_sets = ImageSet.where(map_id: params[:map_id])
+    render json: @image_sets
+  end
+
+
   # GET /images/new
   def new
     @image = Image.new

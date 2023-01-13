@@ -8,3 +8,5 @@
 #
 map = Map.create(title: "Gurtenfestival", lat: 46.91783849056467, lng: 7.441518321128134, zoom: 17)
 ImageSet.create(title: "Ground", typ:"Ground",color:"red", map: map)
+
+

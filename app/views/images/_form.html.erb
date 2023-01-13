@@ -52,13 +52,61 @@
   </div>
 
 
-    <div>
-      <%= form.label :image_set_id, style: "display: block" %>
-      <%= form.select :image_set_id, options_from_collection_for_select(ImageSet.all, :id, :typ, image.image_set_id),{include_blank: 'Select ImageSet'} %>
+  <div>
+    <%= form.label :map_id, style: "display: block" %>
+    <%= form.select :map_id, options_from_collection_for_select(Map.all, :id, :title), {include_blank: 'Select Map'}, onchange: "updateImageSetOptions(this)" %>
+    <%#= form.collection_select :map_id, Map.all, :id, :title, {include_blank: 'Select Map'}, {id: 'map_id'}, onchange: "updateImageSetOptions(this)"   %>
+  </div>
 
-    </div>
+  <div>
+    <%= form.label :image_sets_id, style: "display: block" %>
+    <select id="image_sets_id" name="image[image_sets_id]">
+      <option value="">Select ImageSet</option>
+    </select>
+  </div>
 
   <div>
     <%= form.submit %>
   </div>
 <% end %>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    document.querySelector("#map_id").addEventListener("change", function() {
+        var imageSetSelect = document.querySelector("#image_sets_id");
+        if (this.value) {
+            imageSetSelect.disabled = false;
+        } else {
+            imageSetSelect.disabled = true;
+        }
+    });
+
+
+    function updateImageSetOptions(select) {
+        var imageSet = document.getElementById("image_sets_id");
+        var mapId = select.value;
+        $.ajax({
+            url: '/get_image_sets',
+            type: 'GET',
+            data: { map_id: mapId },
+            success: function(data) {
+                //imageSet.innerHTML = "Select ImageMap";
+                for (var i = 0; i < data.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = data[i].id;
+                    option.text = data[i].typ;
+                    imageSet.appendChild(option);
+                }
+            }
+        });
+            }
+</script>
+
+
+
+
+
+
