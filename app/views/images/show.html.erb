@@ -2,6 +2,13 @@
 
 <%= render @image %>
 
+
+<% @image.source.each do |source| %>
+  <%= image_tag source, class: "img-responsive", style:"max-height:200px"%>
+<% end %>
+
+
+
 <div>
   <%= link_to "Edit this image", edit_image_path(@image) %> |
   <%= link_to "Back to images", images_path %>

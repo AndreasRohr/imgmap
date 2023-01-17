@@ -11,24 +11,24 @@
     </div>
   <% end %>
 
+  <%= form.hidden_field :lat, id: 'hidden_lat' %>
+
   <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
+
   </div>
 
   <div>
-    <%= form.label :lat, style: "display: block" %>
-    <%= form.text_field :lat %>
+    <%= form.hidden_field :lat, id: 'hidden_lat' %>
   </div>
 
   <div>
-    <%= form.label :lng, style: "display: block" %>
-    <%= form.text_field :lng %>
+    <%= form.hidden_field :lng, id: 'hidden_lng' %>
   </div>
 
   <div>
-    <%= form.label :rotation, style: "display: block" %>
-    <%= form.text_field :rotation %>
+    <%= form.hidden_field :rotation, id: 'hidden_rotation' %>
   </div>
 
   <div>
@@ -42,8 +42,9 @@
   </div>
 
   <div>
-    <%= form.label :source, style: "display: block" %>
-    <%= form.text_field :source %>
+    <%= form.label :source, multiple: true, style: "display: block" %>
+    <%= form.file_field :source, multiple: true, name: "image[source][]" %>
+
   </div>
 
   <div>
@@ -61,12 +62,25 @@
     <%= form.select :image_set_id, options_from_collection_for_select(ImageSet.all, :id, :typ, image.image_set_id),{include_blank: 'Select ImageSet'},{id: 'image_set_id' ,disabled: true}  %>
   </div>
 
+
+
   <div>
     <%= form.submit %>
   </div>
+
 <% end %>
+
+
+<script src="https://cdn.jsdelivr.net/npm/exifr/dist/lite.umd.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="module">
+
+
+
+
+
     document.querySelector("#map_id").addEventListener("change", function() {
         var imageSetSelect = document.querySelector("#image_set_id");
         if (this.value) {

@@ -8,6 +8,8 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
+    @image = Image.find_by(id: params[:id])
+    redirect_to images_path, notice: "Image not found." if !@image
   end
 
   # GET /images/new
@@ -20,19 +22,39 @@ class ImagesController < ApplicationController
   end
 
   # POST /images or /images.json
-  def create
-    @image = Image.new(image_params)
 
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to image_url(@image), notice: "Image was successfully created." }
-        format.json { render :show, status: :created, location: @image }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+
+  def create
+    if params[:image][:source].present?
+      params[:image][:source].each do |file|
+        if file.is_a?(ActionDispatch::Http::UploadedFile)
+          @image = Image.new(image_params)
+          @image.source = file
+          @image.save
+        end
       end
+      redirect_to images_path, notice: "Images were successfully uploaded."
+    else
+      redirect_to new_image_path, alert: "Please select at least one file to upload."
     end
   end
+
+
+
+
+  # def create
+  #   @image = Image.new(image_params)
+  #
+  #   respond_to do |format|
+  #     if @image.save
+  #       format.html { redirect_to image_url(@image), notice: "Image was successfully created." }
+  #       format.json { render :show, status: :created, location: @image }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @image.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /images/1 or /images/1.json
   def update
@@ -57,6 +79,8 @@ class ImagesController < ApplicationController
     end
   end
 
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_image
@@ -65,6 +89,6 @@ class ImagesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def image_params
-    params.require(:image).permit(:title, :lat, :lng, :rotation, :tag, :date, :source, :uploadedBy, :image_set_id)
+    params.require(:image).permit(:title, :lat, :lng, :rotation, :tag, :date, :uploadedBy, :image_set_id, :source =>[])
   end
 end
