@@ -1,6 +1,7 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[ show edit update destroy ]
 
+
   # GET /images or /images.json
   def index
     @images = Image.all
@@ -30,6 +31,13 @@ class ImagesController < ApplicationController
         if file.is_a?(ActionDispatch::Http::UploadedFile)
           @image = Image.new(image_params)
           @image.source = file
+          require 'exifr/jpeg'
+          @image.title = EXIFR::JPEG.new(file.path).model
+          @image.lat = EXIFR::JPEG.new(file.path).gps.latitude
+          @image.lng = EXIFR::JPEG.new(file.path).gps.longitude
+          @image.rotation = EXIFR::JPEG.new(file.path).gps.image_direction
+          @image.date = EXIFR::JPEG.new(file.path).date_time
+          @image.uploadedBy = EXIFR::JPEG.new(file.path).artist
           @image.save
         end
       end
@@ -86,6 +94,11 @@ class ImagesController < ApplicationController
   def set_image
     @image = Image.find(params[:id])
   end
+
+
+
+
+
 
   # Only allow a list of trusted parameters through.
   def image_params
